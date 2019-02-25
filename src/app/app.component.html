@@ -1,0 +1,54 @@
+<div class="title">
+		Ранее сохраненные файлы
+	</div>
+	<div class="filter">
+		<div class="filter-period">
+			<div class="label">
+				Выберите период
+			</div>
+			<input type="text" placeholder="От" #dateFrom>
+			<span class="filter-period__delimeter">–</span>
+			<input type="text" placeholder="До" #dateTo>
+		</div>
+		<div class="filter-wrapper">
+			<div class="label">
+				Выберите тип
+			</div>
+			<div class="select" (click)="select()">
+				<div class="value">
+					Все
+				</div>
+				<div class="select__list-wrapper" [class.active]="isSelected">
+					<div class="select__list" >
+						<div class="select__list-item" *ngFor="let file of getFiles()">
+              {{file.type}}
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button class="button">ОЧИСТИТЬ</button>
+		<button class="button__primary" (click)="getTemp(dateFrom.value, dateTo.value)">ПРИМЕНИТЬ</button>
+	</div>
+	<div class="files">
+		<div *ngFor="let file of getFiles()" class="files__item">
+			<div class="files__type">
+				{{file.type}}
+			</div>
+			<div class="files__info">
+				<span class="files__date-download">Дата загрузки: <span>{{file.timeDownload}}</span></span>
+				<span class="files__time-storage">Срок хранения: до <span>{{file.timeStorage}}</span></span>
+				<div class="files__name">
+					{{file.name}}
+					<span class="files__size">{{file.size}}}</span>
+				</div>
+				<div class="files__full-name">
+					{{file.fullName}}
+				</div>
+			</div>
+			<div class="files__icons">
+				<span class="icon__download" title="Скачать"></span>
+				<span class="icon__delete" title="Удалить"></span>
+			</div>
+		</div>
+	</div>
