@@ -7,36 +7,63 @@ import { Model } from './model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isSelected = false;
+
   model = new Model();
+  selectModel = new Model();
+  isSelected = false;
+  selectCurrentValue = "Все";
 
-// getTemp(dateFrom, dateTo) {
-//   // this.getFiles(dateFrom, dateTo);
+  getFiles() {
+    return this.model.files.filter(item => !item.isShow);
+  }
 
-// }
+  getItemSelect() {
+    return this.selectModel.files;
+  }
 
-getFiles() {
-  return this.model.files.filter(item => !item.isShow);
-}
-
-  getTemp(dateFrom, dateTo) {
-    let filesArray = this.model.files;
-    for(let prop in filesArray) {
+  getDate(dateFrom?, dateTo?) {
+    for (let prop in this.model.files) {
       let dateFromRight = dateFrom.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
       let dateToRight = dateTo.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
       dateFromRight = new Date(dateFromRight);
       dateToRight = new Date(dateToRight);
-      let dateCur = filesArray[prop].timeDownload.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
+      let dateCur = this.model.files[prop].timeDownload.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
       dateCur = new Date(dateCur);
       if (dateCur < dateFromRight || dateCur > dateToRight) {
-        filesArray[prop].isShow = true;
+        this.model.files[prop].isShow = true;
       } else {
-        filesArray[prop].isShow = false;
+        this.model.files[prop].isShow = false;
+      }
+    }
+  }
+
+  filterByTypeFile(val) {
+    this.selectCurrentValue = val;
+
+    for(let prop in this.model.files) {
+      if(this.model.files[prop].type === val) {
+        this.model.files[prop].isShow = false;
+      } else {
+        this.model.files[prop].isShow = true;
       }
     }
   }
 
   select() {
     this.isSelected = this.isSelected ? false : true;
+  }
+
+  clearFilter(dateFrom, dateTo) {
+    dateFrom.value = '';
+    dateTo.value = '';
+    this.selectCurrentValue = 'Все';
+    for (let prop in this.model.files) {
+      this.model.files[prop].isShow = false;
+    }
+  }
+
+  testFun(arrFiles, curFile) {
+    console.log(arrFiles.splice(0,1));
+    console.log(arrFiles);
   }
 }

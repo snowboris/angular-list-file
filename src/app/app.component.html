@@ -6,9 +6,9 @@
 			<div class="label">
 				Выберите период
 			</div>
-			<input type="text" placeholder="От" #dateFrom>
+			<input type="text" placeholder="От" #dateFrom value="testdata">
 			<span class="filter-period__delimeter">–</span>
-			<input type="text" placeholder="До" #dateTo>
+			<input type="text" placeholder="До" #dateTo value="testdata2">
 		</div>
 		<div class="filter-wrapper">
 			<div class="label">
@@ -16,19 +16,19 @@
 			</div>
 			<div class="select" (click)="select()">
 				<div class="value">
-					Все
+					{{selectCurrentValue}}
 				</div>
 				<div class="select__list-wrapper" [class.active]="isSelected">
 					<div class="select__list" >
-						<div class="select__list-item" *ngFor="let file of getFiles()">
+						<div class="select__list-item" *ngFor="let file of getItemSelect()" (click)="filterByTypeFile(file.type)">
               {{file.type}}
             </div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<button class="button">ОЧИСТИТЬ</button>
-		<button class="button__primary" (click)="getTemp(dateFrom.value, dateTo.value)">ПРИМЕНИТЬ</button>
+		<button class="button" (click)="clearFilter(dateFrom, dateTo)">ОЧИСТИТЬ</button>
+		<button class="button__primary" (click)="getDate(dateFrom.value, dateTo.value)">ПРИМЕНИТЬ</button>
 	</div>
 	<div class="files">
 		<div *ngFor="let file of getFiles()" class="files__item">
@@ -48,7 +48,7 @@
 			</div>
 			<div class="files__icons">
 				<span class="icon__download" title="Скачать"></span>
-				<span class="icon__delete" title="Удалить"></span>
+				<span class="icon__delete" title="Удалить" (click)="testFun(getFiles(), file)"></span>
 			</div>
 		</div>
 	</div>
