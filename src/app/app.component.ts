@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Model } from './model';
+import { Model, File } from './model';
 
 @Component({
   selector: 'angular-list-files',
@@ -8,10 +8,10 @@ import { Model } from './model';
 })
 export class AppComponent {
 
-  model = new Model();
-  selectModel = new Model();
-  isSelected = false;
-  selectCurrentValue = "Все";
+  model: Model = new Model();
+  selectModel: Model = new Model();
+  isSelected: boolean = false;
+  selectCurrentValue: String = "Все";
 
   getFiles() {
     return this.model.files.filter(item => !item.isShow);
@@ -62,8 +62,7 @@ export class AppComponent {
     }
   }
 
-  testFun(arrFiles, curFile) {
-    console.log(arrFiles.splice(0,1));
-    console.log(arrFiles);
-  }
+  deleteItem(curFile:any) {
+    this.model.files.splice(this.model.files.indexOf(curFile),1)
+    }
 }
