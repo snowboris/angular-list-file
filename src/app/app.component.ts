@@ -14,40 +14,40 @@ export class AppComponent {
   selectCurrentValue: String = "Все";
 
   getFiles() {
-    return this.model.files.filter(item => !item.isShow);
+    return this.model.files;
   }
 
   getItemSelect() {
     return this.selectModel.files;
   }
 
-  getDate(dateFrom?, dateTo?) {
-    for (let prop in this.model.files) {
-      let dateFromRight = dateFrom.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
-      let dateToRight = dateTo.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
-      dateFromRight = new Date(dateFromRight);
-      dateToRight = new Date(dateToRight);
-      let dateCur = this.model.files[prop].timeDownload.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
-      dateCur = new Date(dateCur);
-      if (dateCur < dateFromRight || dateCur > dateToRight) {
-        this.model.files[prop].isShow = true;
-      } else {
-        this.model.files[prop].isShow = false;
-      }
-    }
-  }
+  // getDate(dateFrom?, dateTo?) {
+  //   for (let prop in this.model.files) {
+  //     let dateFromRight = dateFrom.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
+  //     let dateToRight = dateTo.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
+  //     dateFromRight = new Date(dateFromRight);
+  //     dateToRight = new Date(dateToRight);
+  //     let dateCur = this.model.files[prop].timeDownload.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1");
+  //     dateCur = new Date(dateCur);
+  //     if (dateCur < dateFromRight || dateCur > dateToRight) {
+  //       this.model.files[prop].isShow = true;
+  //     } else {
+  //       this.model.files[prop].isShow = false;
+  //     }
+  //   }
+  // }
 
-  filterByTypeFile(val) {
-    this.selectCurrentValue = val;
+  // filterByTypeFile(val) {
+  //   this.selectCurrentValue = val;
 
-    for(let prop in this.model.files) {
-      if(this.model.files[prop].type === val) {
-        this.model.files[prop].isShow = false;
-      } else {
-        this.model.files[prop].isShow = true;
-      }
-    }
-  }
+  //   for(let prop in this.model.files) {
+  //     if(this.model.files[prop].type === val) {
+  //       this.model.files[prop].isShow = false;
+  //     } else {
+  //       this.model.files[prop].isShow = true;
+  //     }
+  //   }
+  // }
 
   select() {
     this.isSelected = this.isSelected ? false : true;

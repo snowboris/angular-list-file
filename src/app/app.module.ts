@@ -5,16 +5,18 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {NgxMaskModule} from 'ngx-mask';
+import { customFilter } from './customSort.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    customFilter
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot()    
   ],
   providers: [],
   bootstrap: [AppComponent]

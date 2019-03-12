@@ -1,12 +1,15 @@
 <div class="title">
 		Ранее сохраненные файлы
 	</div>
+	<div>
+
+	</div>
 	<div class="filter">
 		<div class="filter-period">
 			<div class="label">
 				Выберите период
 			</div>
-			<input type="text" placeholder="От" mask='00.00.0000' #dateFrom value="testdata" maskdate-attr>
+			<input type="text" placeholder="От" mask='00.00.0000' #dateFrom value="testdata">
 			<span class="filter-period__delimeter">–</span>
 			<input type="text" placeholder="До" mask='00.00.0000' #dateTo value="testdata2">
 		</div>
@@ -28,10 +31,10 @@
 			</div>
 		</div>
 		<button class="button" (click)="clearFilter(dateFrom, dateTo)">ОЧИСТИТЬ</button>
-		<button class="button__primary" (click)="getDate(dateFrom.value, dateTo.value)">ПРИМЕНИТЬ</button>
+		<button class="button__primary" >ПРИМЕНИТЬ</button>
 	</div>
 	<div class="files">
-		<div *ngFor="let file of getFiles()" class="files__item">
+		<div *ngFor="let file of getFiles() | filter: dateFrom.value : dateTo.value" class="files__item">
 			<div class="files__type">
 				{{file.type}}
 			</div>

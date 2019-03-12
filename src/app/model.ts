@@ -54,12 +54,12 @@ export class Model {
 }
 
 export class File {
-  name;
-  type;
-  timeDownload;
-  timeStorage;
-  size;
-  fullName;
+  name: string;
+  type: string;
+  timeDownload: string;
+  timeStorage: string;
+  size: string;
+  fullName: string;
   constructor(name, type, timeDownload, timeStorage, size, fullName) {
     this.name = name;
     this.type = type;
