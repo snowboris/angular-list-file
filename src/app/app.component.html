@@ -9,9 +9,9 @@
 			<div class="label">
 				Выберите период
 			</div>
-			<input type="text" placeholder="От" mask='00.00.0000' #dateFrom value="testdata">
+			<input type="text" placeholder="От" mask='00.00.0000' #dateFrom>
 			<span class="filter-period__delimeter">–</span>
-			<input type="text" placeholder="До" mask='00.00.0000' #dateTo value="testdata2">
+			<input type="text" placeholder="До" mask='00.00.0000' #dateTo>
 		</div>
 		<div class="filter-wrapper">
 			<div class="label">
@@ -23,7 +23,7 @@
 				</div>
 				<div class="select__list-wrapper" [class.active]="isSelected">
 					<div class="select__list" >
-						<div class="select__list-item" *ngFor="let file of getItemSelect()" (click)="filterByTypeFile(file.type)">
+						<div class="select__list-item" *ngFor="let file of getItemSelect()" (click)="setSelectedVal(file.type)">
               {{file.type}}
             </div>
 					</div>
@@ -31,10 +31,10 @@
 			</div>
 		</div>
 		<button class="button" (click)="clearFilter(dateFrom, dateTo)">ОЧИСТИТЬ</button>
-		<button class="button__primary" >ПРИМЕНИТЬ</button>
+		<button class="button__primary" (click)="applyFilter(dateFrom.value, dateTo.value)">ПРИМЕНИТЬ</button>
 	</div>
 	<div class="files">
-		<div *ngFor="let file of getFiles() | filter: dateFrom.value : dateTo.value" class="files__item">
+		<div *ngFor="let file of getFiles() | filter: dateDownload: dateStorage: selectCurrrentValueParam" class="files__item">
 			<div class="files__type">
 				{{file.type}}
 			</div>

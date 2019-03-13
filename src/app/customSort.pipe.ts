@@ -7,13 +7,18 @@ import { File } from "./model";
 })
 
 export class customFilter {
-  transform(files: File[], dateFrom:string, dateTo: string): File[] {
-    console.log(dateFrom + " dateToFinal = " +dateTo);
-    let dateFromD = new Date(dateFrom.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1"));
-    let dateToD = new Date(dateTo.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1"));
+  transform(files: File[], dateFrom:string = '', dateTo: string = '', typeFile: string): File[] {
+    let dateFromD: any = (dateFrom!= null )? new Date(dateFrom.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1")): null;
+    let dateToD: any = (dateTo != null)?  new Date(dateTo.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1")): null;
+    let isTrueType: boolean = true;
+    let isDateDownload: boolean = true;
+    let isDateStorage: boolean = true;
     return files.filter(file => {
-      let timeDownload = new Date(file.timeDownload.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1"));
-      if (timeDownload >= dateFromD && timeDownload <= dateToD) {
+      let timeDownload: Date = new Date(file.timeDownload.replace(/(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1"));
+      isDateDownload = (dateFromD == "Invalid Date" || dateFromD <= timeDownload)? true : false;
+      isDateStorage = (dateToD == "Invalid Date" || dateToD >= timeDownload)? true : false;
+      isTrueType = (typeFile!=="Все" && file.type!==typeFile) ? isTrueType = false : isTrueType = true;
+      if (isDateDownload && isDateStorage && isTrueType) {
         return true;
       } else {
         return false;

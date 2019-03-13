@@ -11,7 +11,10 @@ export class AppComponent {
   model: Model = new Model();
   selectModel: Model = new Model();
   isSelected: boolean = false;
-  selectCurrentValue: String = "Все";
+  selectCurrentValue : string = "Все";
+  selectCurrrentValueParam: string = this.selectCurrentValue;
+  dateDownload: string;
+  dateStorage: string;
 
   getFiles() {
     return this.model.files;
@@ -19,6 +22,12 @@ export class AppComponent {
 
   getItemSelect() {
     return this.selectModel.files;
+  }
+
+  applyFilter(dateFrom, dateTo) {
+    this.dateDownload = dateFrom;
+    this.dateStorage = dateTo;
+    this.selectCurrrentValueParam = this.selectCurrentValue;
   }
 
   // getDate(dateFrom?, dateTo?) {
@@ -37,17 +46,9 @@ export class AppComponent {
   //   }
   // }
 
-  // filterByTypeFile(val) {
-  //   this.selectCurrentValue = val;
-
-  //   for(let prop in this.model.files) {
-  //     if(this.model.files[prop].type === val) {
-  //       this.model.files[prop].isShow = false;
-  //     } else {
-  //       this.model.files[prop].isShow = true;
-  //     }
-  //   }
-  // }
+  setSelectedVal(val) {
+    this.selectCurrentValue = val;
+  }
 
   select() {
     this.isSelected = this.isSelected ? false : true;
